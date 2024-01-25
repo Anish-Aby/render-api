@@ -1,0 +1,62 @@
+[
+  {
+    "blogId": 0,
+    "blogAuthor": "Anish Aby",
+    "blogPublishDate": "December 02, 2023",
+    "blogTitle": "Hashnode's Feed Architecture",
+    "blogContent": "We previously explained how we calculate the Hashnode Feed and select content and metadata for each user. We found that the feed now displays improved and personalized content. However, we did find two issues in the implementation",
+    "category": "Technology",
+    "isFeatured": true,
+    "blogImage": "./../public/images/hashnode-feed.webp"
+  },
+  {
+    "blogId": 1,
+    "blogTitle": "Setting Up Post Schedules with EventBridge Scheduler & CDK",
+    "blogContent": "One essential feature of any blogging platform is the ability to schedule posts for publication. Hashnode introduced this functionality in June 2022.",
+    "author": "Sarthak Pattnaik",
+    "blogPublishDate": "December 02, 2023",
+    "category": "Technology",
+    "isFeatured": false,
+    "blogImage": "./../public/images/post-schedule.webp"
+  },
+  {
+    "blogId": 2,
+    "blogTitle": "Day 4 of 100days of code.🙆‍♀️😅",
+    "blogContent": "React lets you add event handlers to your JSX. Event handlers are your own functions that will be triggered in response to interactions like clicking, hovering, focusing form inputs, and so on. For this concept about responding to events I will be using the React documentation.",
+    "blogAuthor": "Susan",
+    "blogPublishDate": "December 02, 2023",
+    "category": "Technology",
+    "isFeatured": false,
+    "blogImage": "./../public/images/100days.webp"
+  },
+  {
+    "blogId": 3,
+    "blogTitle": "How to create a custom 404 page in NextJS",
+    "blogContent": "In a NextJS app, when you visit a URL that is not available in your project, you will be redirected to a 404 page. This page comes default without any setup whatsoever. For many developers, this is quite enough but for those looking to add a custom look or maybe even have a button to redirect the user to another page, In this article, I'll walk you through the process on how to create a custom 404 page in NextJS.",
+    "blogAuthor": "Ben Adams",
+    "blogPublishDate": "December 02, 2023",
+    "category": "Technology",
+    "isFeatured": true,
+    "blogImage": "./../public/images/404-page.webp"
+  },
+  {
+    "blogId": 4,
+    "blogTitle": "React Design Patterns ⭐",
+    "blogContent": "In this article you’ll learn How React Developer can save time and effort by using design patterns. Its Provide a quick approach to find problems using tested and trusted solutions which is helps React Developers create maintainable, scalable and efficient application. in this article. I will explain React Design patterns and explain how they might improve the development of React application",
+    "blogAuthor": "KnightBits",
+    "blogPublishDate": "December 02, 2023",
+    "category": "Technology",
+    "isFeatured": false,
+    "blogImage": "./../public/images/react-patterns.webp"
+  },
+  {
+    "blogId": 5,
+    "blogTitle": "Diving into Kubernetes: A Journey of Immersive Learning 🌐",
+    "blogContent": "Embarking on the quest to understand Kubernetes, I stumbled upon a treasure trove of knowledge curated by Aman Pathak. These comprehensive documents not only simplified the complexities of Kubernetes but also transformed the learning experience into a thrilling adventure. 🚀",
+    "blogAuthor": "Dan Richards",
+    "blogPublishDate": "December 02, 2023",
+    "category": "Technology",
+    "isFeatured": false,
+    "blogImage": "./../public/images/kubernetes.webp"
+  }
+]
