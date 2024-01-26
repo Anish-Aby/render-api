@@ -1,5 +1,5 @@
 const express = require("express");
-const fs = require("fs");
+const cors = require("cors");
 
 const BlogRouter = require(`${__dirname}/routes/BlogRoutes.js`);
 const UserRouter = require(`${__dirname}/routes/UserRoutes.js`);
@@ -9,6 +9,7 @@ const morgan = require("morgan");
 
 app.use(express.json());
 app.use(express.static("public"));
+app.use(cors());
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
