@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 
 const BlogRouter = require(`${__dirname}/routes/BlogRoutes.js`);
-// const UserRouter = require(`${__dirname}/routes/userRoutes.js`);
+const UserRouter = require(`${__dirname}/routes/UserRoutes.js`);
 
 const app = express();
 const morgan = require("morgan");
@@ -15,6 +15,6 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use("/api/v1/blogs", BlogRouter);
-// app.use("/api/v1/users", UserRouter);
+app.use("/api/v1/users", UserRouter);
 
 module.exports = app;
