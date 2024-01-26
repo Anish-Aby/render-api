@@ -28,15 +28,3 @@ const blogSchema = new mongoose.Schema({
 const Blog = mongoose.model("Blog", blogSchema);
 
 module.exports = Blog;
-
-// const newBlog = new Blog({
-//   author: "Anish Aby",
-//   date: "December 02, 2023",
-//   title: "Hashnode's Feed Architecture",
-//   body: "We previously explained how we calculate the Hashnode Feed and select content and metadata for each user. We found that the feed now displays improved and personalized content. However, we did find two issues in the implementation",
-//   category: "Technology",
-//   isFeatured: true,
-//   image: "./../public/images/hashnode-feed.webp",
-//   likes: 0,
-//   comments: [{ body: "Amazing content!", date: Date.now() }],
-// });

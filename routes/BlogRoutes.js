@@ -11,6 +11,10 @@ router
   .get(blogController.getAllBlogs)
   .post(blogController.createBlog);
 
-router.route("/:blogId").get(blogController.getBlogById);
+router
+  .route("/:blogId")
+  .get(blogController.getBlogById)
+  .patch(blogController.updateBlog)
+  .delete(blogController.deleteBlog);
 
 module.exports = router;
