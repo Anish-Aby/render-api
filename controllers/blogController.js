@@ -1,5 +1,7 @@
 const Blog = require("./../models/blogModel");
 
+const { convert } = require("html-to-text");
+
 // get all blogs
 exports.getAllBlogs = async (req, res) => {
   try {
@@ -49,6 +51,25 @@ exports.createBlog = async (req, res) => {
     blogId = title.toLowerCase().split(" ").join("-");
   }
 
+  // make summary
+  const blogContent = requestBody.body.content.blocks;
+  let summaryArray = [],
+    counter = 0;
+  for (block of blogContent) {
+    if (block.type === "paragraph") {
+      summaryArray.push(block.data.text);
+      counter++;
+    }
+    if (counter >= 2) break;
+  }
+
+  const converterFormatters = {
+    whitespaceCharacters: "",
+    selectors: [{ selector: "a", options: { ignoreHref: true } }],
+  };
+
+  const summary = convert(summaryArray.join(" "), converterFormatters);
+
   // make new blog obj
   const newBlog = new Blog({
     _id: blogId,
@@ -57,6 +78,7 @@ exports.createBlog = async (req, res) => {
     title: requestBody.title,
     image: requestBody.image,
     body: requestBody.body,
+    summary: summary,
     category: requestBody.category,
     isFeatured: requestBody.isFeatured,
   });
@@ -65,7 +87,7 @@ exports.createBlog = async (req, res) => {
     await newBlog.save();
     res.status(201).json({
       status: "success",
-      data: "Blog published successfully",
+      data: newBlog,
     });
   } catch (err) {
     res.status(404).json({

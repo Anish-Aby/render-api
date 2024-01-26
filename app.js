@@ -11,7 +11,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  // origin: "https://renderio.netlify.app",
+  origin: true,
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };

@@ -13,6 +13,7 @@ const blogSchema = new mongoose.Schema({
   title: String,
   image: String,
   body: mongoose.Schema.Types.Mixed,
+  summary: String,
   category: String,
   comments: {
     type: Array,
