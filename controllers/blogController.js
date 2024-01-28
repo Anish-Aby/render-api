@@ -1,53 +1,46 @@
 const Blog = require("./../models/blogModel");
 const APIFeatures = require("./../utils/apiFeatures");
+const catchAsync = require("./../utils/catchAsync");
 const slugify = require("slugify");
 
 const { convert } = require("html-to-text");
+const AppError = require("../utils/appError");
 
 // get all blogs
-exports.getAllBlogs = async (req, res) => {
-  try {
-    const features = new APIFeatures(Blog.find(), req.query)
-      .filter()
-      .sort()
-      .limitFields()
-      .paginate();
-    const blogs = await features.query;
+exports.getAllBlogs = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(Blog.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const blogs = await features.query;
 
-    res.status(200).json({
-      status: "success",
-      results: blogs.length,
-      data: {
-        blogs,
-      },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: "error",
-      message: err.message,
-    });
-  }
-};
+  res.status(200).json({
+    status: "success",
+    results: blogs.length,
+    data: {
+      blogs,
+    },
+  });
+});
 
 // get blog by id
-exports.getBlogById = async (req, res) => {
+exports.getBlogById = catchAsync(async (req, res, next) => {
   const blogId = req.params.blogId;
-  try {
-    const blog = await Blog.findById(blogId);
-    res.status(200).json({
-      status: "success",
-      blog,
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: "error",
-      message: err,
-    });
+  const blog = await Blog.findById(blogId);
+
+  if (!blog) {
+    return next(new AppError("No tour found with that ID", 404));
   }
-};
+
+  res.status(200).json({
+    status: "success",
+    blog,
+  });
+});
 
 // create blog
-exports.createBlog = async (req, res) => {
+exports.createBlog = catchAsync(async (req, res, next) => {
   // access req body
   const requestBody = req.body;
   let blogId = slugify(requestBody.title, {
@@ -96,56 +89,43 @@ exports.createBlog = async (req, res) => {
     isFeatured: requestBody.isFeatured,
   });
 
-  try {
-    await newBlog.save();
-    res.status(201).json({
-      status: "success",
-      data: newBlog,
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: "error",
-      message: err,
-    });
-  }
-};
+  await newBlog.save();
+  res.status(201).json({
+    status: "success",
+    data: newBlog,
+  });
+});
 
 // update blogs
-exports.updateBlog = async (req, res) => {
-  try {
-    const blogId = req.params.blogId;
-    const body = req.body;
-    const blog = await Blog.findByIdAndUpdate(blogId, body, {
-      new: true,
-      runValidators: true,
-    });
+exports.updateBlog = catchAsync(async (req, res, next) => {
+  const blogId = req.params.blogId;
+  const body = req.body;
+  const blog = await Blog.findByIdAndUpdate(blogId, body, {
+    new: true,
+    runValidators: true,
+  });
 
-    res.status(200).json({
-      status: "success",
-      data: blog,
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: "error",
-      message: err,
-    });
+  if (!blog) {
+    return next(new AppError("No tour found with that ID", 404));
   }
-};
+
+  res.status(200).json({
+    status: "success",
+    data: blog,
+  });
+});
 
 // delete blog
-exports.deleteBlog = async (req, res) => {
+exports.deleteBlog = catchAsync(async (req, res, next) => {
   const blogId = req.params.blogId;
-  try {
-    await Blog.findByIdAndDelete(blogId);
+  const blog = await Blog.findByIdAndDelete(blogId);
 
-    res.status(200).json({
-      status: "success",
-      data: "Blog deleted successfully",
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: "error",
-      message: err,
-    });
+  if (!blog) {
+    return next(new AppError("No tour found with that ID", 404));
   }
-};
+
+  res.status(200).json({
+    status: "success",
+    data: "Blog deleted successfully",
+  });
+});

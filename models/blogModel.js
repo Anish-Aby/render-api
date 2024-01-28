@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const slugify = require("slugify");
 
 const blogSchema = new mongoose.Schema({
   _id: {
