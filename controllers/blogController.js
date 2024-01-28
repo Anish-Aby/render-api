@@ -1,11 +1,19 @@
 const Blog = require("./../models/blogModel");
+const APIFeatures = require("./../utils/apiFeatures");
+const slugify = require("slugify");
 
 const { convert } = require("html-to-text");
 
 // get all blogs
 exports.getAllBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find();
+    const features = new APIFeatures(Blog.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const blogs = await features.query;
+
     res.status(200).json({
       status: "success",
       results: blogs.length,
@@ -16,7 +24,7 @@ exports.getAllBlogs = async (req, res) => {
   } catch (err) {
     res.status(404).json({
       status: "error",
-      message: err,
+      message: err.message,
     });
   }
 };
@@ -42,14 +50,19 @@ exports.getBlogById = async (req, res) => {
 exports.createBlog = async (req, res) => {
   // access req body
   const requestBody = req.body;
-  let blogId;
+  let blogId = slugify(requestBody.title, {
+    remove: /[*+~.()'"!:@]/g,
+    strict: true,
+    lower: true,
+    trim: true,
+  });
 
   // remove special characters from title for blog-id
-  if (requestBody.title) {
-    const removeQuote = requestBody.title.replace(/[']+/g, "");
-    const title = removeQuote.replace(/[^a-zA-Z0-9]+/g, " ").trim();
-    blogId = title.toLowerCase().split(" ").join("-");
-  }
+  // if (requestBody.title) {
+  //   const removeQuote = requestBody.title.replace(/[']+/g, "");
+  //   const title = removeQuote.replace(/[^a-zA-Z0-9]+/g, " ").trim();
+  //   blogId = title.toLowerCase().split(" ").join("-");
+  // }
 
   // make summary
   const blogContent = requestBody.body.content.blocks;

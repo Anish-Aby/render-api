@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 const blogSchema = new mongoose.Schema({
   _id: {
@@ -25,6 +26,19 @@ const blogSchema = new mongoose.Schema({
   },
   isFeatured: Boolean,
 });
+
+// blogSchema.pre("save", function (next) {
+//   this._id = slugify(this.title, {
+//     remove: /[*+~.()'"!:@]/g,
+//     strict: true,
+//     lower: true,
+//     trim: true,
+//   });
+// });
+
+// blogSchema.post("save", function (doc, next) {
+//   console.log("will save...");
+// });
 
 const Blog = mongoose.model("Blog", blogSchema);
 
