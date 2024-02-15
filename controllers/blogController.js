@@ -30,7 +30,7 @@ exports.getBlogById = catchAsync(async (req, res, next) => {
   const blog = await Blog.findById(blogId);
 
   if (!blog) {
-    return next(new AppError("No tour found with that ID", 404));
+    return next(new AppError("No blog found with that ID", 404));
   }
 
   res.status(200).json({
@@ -106,7 +106,7 @@ exports.updateBlog = catchAsync(async (req, res, next) => {
   });
 
   if (!blog) {
-    return next(new AppError("No tour found with that ID", 404));
+    return next(new AppError("No blog found with that ID", 404));
   }
 
   res.status(200).json({
@@ -121,7 +121,7 @@ exports.deleteBlog = catchAsync(async (req, res, next) => {
   const blog = await Blog.findByIdAndDelete(blogId);
 
   if (!blog) {
-    return next(new AppError("No tour found with that ID", 404));
+    return next(new AppError("No blog found with that ID", 404));
   }
 
   res.status(200).json({
